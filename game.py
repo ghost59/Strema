@@ -19,13 +19,21 @@ def run():
     hunger_mass = 1.0
     running = True
     event = sdl3.SDL_Event()
-    rect = sdl3.SDL_FRect(100, 100, 200, 100)
-  
+    rect = sdl3.SDL_FRect(125 , 300, 200, 300)
+    rect2 = sdl3.SDL_FRect(355, 300, 200, 300)
+    rect3 = sdl3.SDL_FRect(655,300, 200, 300)
+    rect4 = sdl3.SDL_FRect(900,300, 200, 300)
+    sdl3.SDL_RenderPresent(renderer)
+    sdl3.SDL_SetRenderVSync(renderer, 1)
     
     sdl3.SDL_SetRenderDrawColor(renderer, 200, 0, 0, 255)
     
     sdl3.SDL_RenderFillRect(renderer, rect)
+    sdl3.SDL_RenderFillRect(renderer, rect2)
+    sdl3.SDL_RenderFillRect(renderer,rect3)
+    sdl3.SDL_RenderFillRect(renderer, rect4)
     
+    sdl3.SDL_MouseButtonEvent()
     
 
 
@@ -41,7 +49,12 @@ def run():
                     sdl3.SDL_RenderLine(renderer, 10.23 * hunger_mass, 30.4 * hunger_mass, 22.4 * hunger_mass, 300.4 * hunger_mass)
 
                     print(f"MUNCH: Hunger Mass now {hunger_mass:.2f}")
-                if event.key.key == sdl3.SDL_ClickTrayEntry
+            if event.type == sdl3.SDL_MouseButtonEvent:
+                    if event.key.key == sdl3.SDL_EVENT_MOUSE_BUTTON_DOWN:
+                        sdl3.SDL_RenderLine(renderer, 200.3, 200.3, 200.3, 2-0.3)
+
+
+
       
         draw_w = int(tex_w.value * hunger_mass)
         draw_h = int(tex_h.value * hunger_mass)
@@ -55,8 +68,11 @@ def run():
         # 4. The Void
         points = sdl3.LP_SDL_FPoint(sdl3.SDL_FPoint(draw_h, draw_w))
         sdl3.SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255)
-        sdl3.SDL_RenderLines(renderer, points, 30)
+        
         sdl3.SDL_RenderRect(renderer, rect)
+        sdl3.SDL_RenderRect(renderer, rect2)
+        sdl3.SDL_RenderRect(renderer, rect3)
+        sdl3.SDL_RenderRect(renderer, rect4)
         sdl3.SDL_RenderPresent(renderer)
     
         
@@ -65,6 +81,9 @@ def run():
         # Draw logic will go here
         
         sdl3.SDL_RenderPresent(renderer)
+    fps = 60
+    
+  
     
     sdl3.SDL_DestroyRenderer(renderer)
     sdl3.SDL_DestroyWindow(window)
