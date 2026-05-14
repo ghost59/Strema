@@ -15,23 +15,21 @@ def run():
     sdl3.SDL_DestroySurface(test)
     tex_w = ctypes.c_float()
     tex_h = ctypes.c_float()
-    sdl3.SDL_GetTextureSize(texture, ctypes.byref(tex_w), ctypes.byref(tex_h))
+    #sdl3.SDL_GetTextureSize(texture, ctypes.byref(tex_w), ctypes.byref(tex_h))
     hunger_mass = 1.0
     running = True
     event = sdl3.SDL_Event()
-    rect = sdl3.SDL_FRect(125 , 300, 200, 300)
-    rect2 = sdl3.SDL_FRect(355, 300, 200, 300)
-    rect3 = sdl3.SDL_FRect(655,300, 200, 300)
-    rect4 = sdl3.SDL_FRect(900,300, 200, 300)
-    sdl3.SDL_RenderPresent(renderer)
-    sdl3.SDL_SetRenderVSync(renderer, 1)
+    rect = sdl3.SDL_FRect(125 , 500, 100, 200)
+    rect2 = sdl3.SDL_FRect(345, 500, 100, 200)
+    rect3 = sdl3.SDL_FRect(625,500, 100, 200)
+    rect4 = sdl3.SDL_FRect(845,500, 100, 200)
+    
+    
+   
     
     sdl3.SDL_SetRenderDrawColor(renderer, 200, 0, 0, 255)
     
-    sdl3.SDL_RenderFillRect(renderer, rect)
-    sdl3.SDL_RenderFillRect(renderer, rect2)
-    sdl3.SDL_RenderFillRect(renderer,rect3)
-    sdl3.SDL_RenderFillRect(renderer, rect4)
+ 
     
     sdl3.SDL_MouseButtonEvent()
     
@@ -67,24 +65,30 @@ def run():
         )
         # 4. The Void
         points = sdl3.LP_SDL_FPoint(sdl3.SDL_FPoint(draw_h, draw_w))
-        sdl3.SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255)
-        
+        sdl3.SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255)
+        sdl3.SDL_RenderFillRect(renderer, rect)
+        sdl3.SDL_RenderFillRect(renderer, rect2)
+        sdl3.SDL_RenderFillRect(renderer, rect3)
+        sdl3.SDL_RenderFillRect(renderer, rect4)
+
+
+
         sdl3.SDL_RenderRect(renderer, rect)
         sdl3.SDL_RenderRect(renderer, rect2)
         sdl3.SDL_RenderRect(renderer, rect3)
         sdl3.SDL_RenderRect(renderer, rect4)
         sdl3.SDL_RenderPresent(renderer)
-    
-        
+        sdl3.SDL_SetRenderVSync(renderer,1)
+       
 
 
         # Draw logic will go here
+
         
-        sdl3.SDL_RenderPresent(renderer)
     fps = 60
     
   
-    
+      
     sdl3.SDL_DestroyRenderer(renderer)
     sdl3.SDL_DestroyWindow(window)
     sdl3.SDL_Quit()
