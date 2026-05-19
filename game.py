@@ -44,14 +44,24 @@ def run():
             if event.type == sdl3.SDL_EVENT_KEY_DOWN:
                 if event.key.key == sdl3.SDLK_M: # Munch
                     hunger_mass += 0.15
-                    sdl3.SDL_RenderLine(renderer, 10.23 * hunger_mass, 30.4 * hunger_mass, 22.4 * hunger_mass, 300.4 * hunger_mass)
+                    
 
                     print(f"MUNCH: Hunger Mass now {hunger_mass:.2f}")
-            if event.type == sdl3.SDL_MouseButtonEvent:
-                    if event.key.key == sdl3.SDL_EVENT_MOUSE_BUTTON_DOWN:
-                        sdl3.SDL_RenderLine(renderer, 200.3, 200.3, 200.3, 2-0.3)
+            if event.type == sdl3.SDL_EVENT_MOUSE_BUTTON_DOWN:
+                if event.button.button == sdl3.SDL_BUTTON_LEFT:
+                    test = sdl3.SDL_FRect(event.button.x - 1.0, event.button.y - 1.0 , event.button.x - 1.0, event.button.y - 1.0)
+                    sdl3.SDL_RenderRect(renderer, test)
+                    print(1 + 2)
+                if event.button.button == sdl3.SDL_BUTTON_RIGHT:
+                    sdl3.SDL_RenderLine(renderer, event.button.x, event.button.y, 200.00 ,20.20)
+            if event.type == sdl3.SDL_EVENT_DROP_BEGIN:
+                if event.button.button == sdl3.SDL_BUTTON_LEFT:
+                    drag = sdl3.SDL_EVENT_DROP_POSITION
+            
+            
 
-
+                
+                    
 
       
         draw_w = int(tex_w.value * hunger_mass)
