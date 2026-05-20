@@ -28,18 +28,21 @@ class GameState:
         
     def play(self):
         while self.player_turn.health > 0:
-            self.players_turns()
+            if self.player_mana >= 10:
+                self.player_turn.Attacks()
+
             self.enemys_turn()
             if self.enemy_turn.health == 0:
                 print("you have won the war and now you win this war.")
                 break
 
+
 class Enemy: 
-    def __init__(self, attack, health, attack_power, power):
+    def __init__(self, attack, health, attack_power):
         self.attack = attack
         self.health = health
         self.attack_power = attack_power
-        self.power = power
+        
         self.mana = 10
     def health_status(self):
         return self.health
@@ -63,16 +66,16 @@ class Enemy:
 
 
         
-    def power_system(self):
-        return self.power
+   
 
 class Player:
-    def __init__(self, attack: int, health: int, attack_power: int, power: int):
+    def __init__(self, attack: int, health: int, attack_power: int,):
         self.attack = attack
         self.health = health
         self.attack_power = attack_power
-        self.power = power
+  
         self.mana = 10
+        self.defense = 5
     def health_status(self):
         return self.health
     def Attacks(self, pows):
@@ -91,11 +94,22 @@ class Player:
             self.mana -= 10
             results = yesss
         return results
+    def Defense(self):
+        choice = input("pick you power")
+        shield = 10
+        life = 15
+        if choice == shield:
+            self.mana -= 5
+            self.defense += shield
+        elif choice == life:
+            self.mana -= 10
+            self.defense += life
+        return self.defense
 
 
 
-player = Player(100, 100, 100, 100)
-enemy = Enemy(100, 100, 100, 100)
+player = Player(100, 100, 100)
+enemy = Enemy(100, 100, 100)
 
 game = GameState(player, enemy)
 game.players_turns()
