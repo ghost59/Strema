@@ -1,5 +1,5 @@
 import random
-
+from dataclasses import dataclass
 class GameState:
     def __init__(self, player_turn, enemy_turn):
         self.player_turn = player_turn
@@ -30,6 +30,8 @@ class GameState:
         while self.player_turn.health > 0:
             if self.player_mana >= 10:
                 self.player_turn.Attacks()
+            elif self.enemy_mana >= 10:
+                self.enemy_turn.Attacks()
 
             self.enemys_turn()
             if self.enemy_turn.health == 0:
@@ -52,9 +54,9 @@ class Enemy:
         life = 200
         evil = 30
         picks = [fire,life,evil]
-        chosen = random.choice(picks)
 
         random.shuffle(picks)
+        chosen = random.choice(picks)
         if chosen == fire:
             self.mana -= 5
         elif chosen == life:
@@ -106,6 +108,26 @@ class Player:
             self.defense += life
         return self.defense
 
+@dataclass()
+class Card:
+    name: str
+    mana_cost: int
+    card_type:str
+    x: int
+    y: int
+    description: str
+    effect: str
+
+@dataclass()
+class Cards:
+    cards: list
+    card: Card
+
+@dataclass()
+class Deck:
+    deck: Cards
+    hand: int
+    
 
 
 player = Player(100, 100, 100)

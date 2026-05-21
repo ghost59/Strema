@@ -10,3 +10,10 @@ Enemy:
     health 
     attack power
     mana
+    defense 
+Game State:
+    player turns
+    enemy tu rn 
+    play
+    turn state
+    
