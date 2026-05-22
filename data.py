@@ -1,5 +1,6 @@
 import random
 from dataclasses import dataclass
+import sdl3
 class GameState:
     def __init__(self, player_turn, enemy_turn):
         self.player_turn = player_turn
@@ -75,7 +76,7 @@ class Player:
         self.attack = attack
         self.health = health
         self.attack_power = attack_power
-  
+        
         self.mana = 10
         self.defense = 5
     def health_status(self):
@@ -115,18 +116,37 @@ class Card:
     card_type:str
     x: int
     y: int
+    h: int
+    w: int 
+
     description: str
     effect: str
 
 @dataclass()
 class Cards:
     cards: list
-    card: Card
+    
 
 @dataclass()
 class Deck:
     deck: Cards
     hand: int
+class Tether(Card):
+    def __init__(self):
+        pass
+    def card_types(self):
+        self.card_type = "Attacker"
+    def decrip(self):
+        self.description = "Jagged chains strip your enemies souls"
+    def cost(self):
+        self.mana_cost -= 5
+        return self.mana_cost
+    
+
+class card_form(Card):
+    def form(self):
+        rect = sdl3.SDL_FRect(self.x, self.y, self.h, self.w)
+        return rect
     
 
 
