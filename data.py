@@ -46,6 +46,7 @@ class Player:
     def health_status(self):
         return self.health
     def Attacks(self, pows):
+        pows = input("select your power")
 
     
         teth = Tether()
