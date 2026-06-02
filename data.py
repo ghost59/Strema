@@ -1,7 +1,8 @@
 import random
 from dataclasses import dataclass, field
 from typing import List
-
+from enum import Enum, auto
+from typing import Callable
 @dataclass()
 class Card:
     name: str
@@ -10,29 +11,35 @@ class Card:
     attack_power: int
     description: str
     effect_type: str
+    effect: Callable
 
+class CardType(Enum):
+    ATTACK = auto
+    DEFENSE = auto
+    SPELL = auto
+class CardEffect(Enum):
+    NONE = auto
+    GROW = auto
+    
 
 @dataclass()
-class Cards:
-    cards: List[Card] = field(default_factory=list)
-
-@dataclass()
-class Deck:
-    deck: Cards
-    hand: int
+class CardState:
+    hand: List[Card] = field(default_factory=list)
+    decks: List[Card] = field(default_factory=list)
+    discard_pile: List[Card] = field(default_factory=list)
 
 @dataclass()
 class Enemy:
     name: str 
     power: int
-    weight: float
-    hand: Deck
+    mana: int
+    cards: CardState
 @dataclass()
 class Player:
     name: str
     power: int
     mana: int
-    cards: List[Card] = field(default_factory=list)
+    cards: CardState
 
 
 
