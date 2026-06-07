@@ -24,19 +24,20 @@ class CardEffect(Enum):
 
 @dataclass()
 class CardState:
-    hand: List[Card] = field(default_factory=list)
-    decks: List[Card] = field(default_factory=list)
-    discard_pile: List[Card] = field(default_factory=list)
-
+    hand: list[Card] = field(default_factory=list)
+    decks: list[Card] = field(default_factory=list)
+    discard_pile: list[Card] =field(default_factory=list)
 @dataclass()
 class Enemy:
-    name: str 
+    name: str
+    health: int 
     power: int
     mana: int
     cards: CardState
 @dataclass()
 class Player:
     name: str
+    health: int
     power: int
     mana: int
     cards: CardState
