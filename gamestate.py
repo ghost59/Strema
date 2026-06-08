@@ -1,11 +1,11 @@
 from data import Player, Enemy
-from cards import state, munch, tether
+from cards import state, munch, tether, shields, shatterd,void, healer
 
 import random
 player= Player("james", 100, 10, 10, state)
 enemy = Enemy("bob", 100, 10, 10, state)
 def draw_card():
-    choices = [munch, tether]
+    choices = [munch, tether, shields, shatterd, void, healer]
     for card in player.cards.hand:
         if len(player.cards.hand) <= 2:
             player.cards.hand.append(random.choice(choices))
@@ -19,12 +19,10 @@ def discard():
              print(card.name)
 def Attack():
     choice = input("Pick your card:")
-    for card in player.cards.hand:
-
-        if card == choice:
-            enemy.health -= card.attack_power
-            player.mana -= card.mana_cost
-            print(enemy.health)
+    for choice in player.cards.hand:
+        enemy.health -= choice.effect(choice)
+        player.mana -= choice.mana_cost
+        print(enemy.health, enemy.name)
 
     
 
@@ -47,7 +45,7 @@ def player_turn():
             case "q":
                 break
             
-player_turn()
+Attack()
 
             
 

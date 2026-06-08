@@ -12,6 +12,7 @@ class Card:
     description: str
     effect_type: str
     effect: Callable
+    defense: int 
 
 class CardType(Enum):
     ATTACK = auto
