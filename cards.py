@@ -22,6 +22,7 @@ def shatter(target_card: Card):
 def heal(target_card:Card, player: Player):
     target_card.defense += 10
     player.health += target_card.defense
+    print(player.health)
 def yeild(target_card: Card):
     target_card.attack_power *= 2
     return target_card.attack_power
