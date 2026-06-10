@@ -7,22 +7,25 @@ enemy = Enemy("bob", 100, 10, 10, state)
 def draw_card():
     choices = [munch, tether, shields, shatterd, void, healer]
     for card in player.cards.hand:
-        if len(player.cards.hand) <= 2:
+        if len(player.cards.hand) <5:
             player.cards.hand.append(random.choice(choices))
         print(card.description)
 def discard():
-    for card in player.cards.hand:
-         if card == player.cards.hand:
-             player.cards.discard_pile.append(card)
-             player.cards.hand.remove(card)
+    choice = input("pick a card to dicard")
+    for choice in player.cards.hand:
+         if choice == player.cards.hand:
+             player.cards.discard_pile.append(choice)
+             player.cards.hand.remove(choice)
              print(player.cards.discard_pile)
-             print(card.name)
+             print(choice.name)
 def Attack():
     choice = input("Pick your card:")
     for choice in player.cards.hand:
         enemy.health -= choice.effect(choice)
         player.mana -= choice.mana_cost
-        print(enemy.health, enemy.name)
+        if choice == player.cards.hand:
+            print(choice.name)
+    print(enemy.health, enemy.name, player.mana)
 
     
 
@@ -45,7 +48,7 @@ def player_turn():
             case "q":
                 break
             
-Attack()
+player_turn()
 
             
 
