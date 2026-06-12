@@ -4,20 +4,21 @@ from cards import state, munch, tether, shields, shatterd,void, healer
 import random
 player= Player("james", 100, 10, 10, state)
 enemy = Enemy("bob", 100, 10, 10, state)
+
+active_turn = "player"
 def draw_card():
     choices = [munch, tether, shields, shatterd, void, healer]
-    for card in player.cards.hand:
+    for cards in player.cards.hand:
         if len(player.cards.hand) <5:
             player.cards.hand.append(random.choice(choices))
-        print(card.description)
+        print(cards.name)
 def discard():
     choice = input("pick a card to dicard: ")
-    for card in player.cards.hand:
-         if choice == choice:
-             player.cards.discard_pile.append(card)
-             player.cards.hand.remove(card)
-             print(player.cards.discard_pile)
-             print(card.name)
+    if choice in player.cards.hand:
+        player.cards.discard_pile.append(choice)
+        player.cards.hand.remove(choice)
+        print(player.cards.discard_pile)
+        print(choice.name)
 
 def show():
     for cards in player.cards.hand:
@@ -25,30 +26,37 @@ def show():
 
 def Attack():
     choice = input("Pick your card:")
-    for choice in player.cards.hand:
-        enemy.health -= choice.effect(choice)
-        player.mana -= choice.mana_cost
-        if choice == player.cards.hand:
-            print(choice.name)
+    choices = {"munch": munch, "tether": tether, "shield": shields, "shattered": shatterd, "void": void}
+    player.mana -= choices[choice].mana_cost
+    enemy.health -= choices[choice].attack_power
     print(enemy.health, enemy.name, player.mana)
 
 def enemy_turn():
+    global active_turn
+    choices =  {"munch": munch, "tether": tether, "shield": shields, "shattered": shatterd, "void": void}
+    if enemy.mana > 0:
+       pick = random.choice(list(choices.keys()))
+       enemy.mana -= choices[pick].mana_cost
+       player.health -= choices[pick].attack_power
+       print(choices[pick].name)
     
-    while enemy.mana > 0:
-        for card in enemy.cards.hand: 
-            player.health -= card.attack_power
+    print(player.health, player.name)
+    print(enemy.mana)
+    active_turn = "player"
+
+
 
 
 def player_turn():
-    
-    
-    while player.mana > 0:
-        print("A:Draw A card, \n" \
-        "B:Discard a  card\n" \
-        "C: Attack enemy\n" \
-        "S: Show hand\n" \
-        "H:Heal")
-        choice = input("Pick your power: ")
+    global active_turn
+    if player.mana > 0:
+        print("""A:Draw A card
+        B:Discard a  card
+        C: Attack enemy
+        S: Show hand
+        H:Heal
+        Q:Quit""")
+        choice = input("Pick your power: ").lower()
 
         match choice:
             case "a":
@@ -61,15 +69,23 @@ def player_turn():
                 show()
             case "h":
                 healer.effect(healer, player)
-            case "q":
-                break
+            case "p":
+                active_turn = "enemy"
+    active_turn = "enemy"
+                
         
             
-player_turn()
-
+def gamestate():
+    global active_turn
+    while player.health > 0 and enemy.health > 0:
+        if active_turn == "player":
+            player_turn()
+            player.mana += 10
+        if active_turn == "enemy":
+            enemy_turn()
+            enemy.mana += 10
             
-
-
+gamestate()
 
 
             

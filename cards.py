@@ -6,6 +6,9 @@ from data import Card, CardState, Player
 def grow(target_card: Card):
     target_card.attack_power += 12
     return target_card.attack_power
+def teth(target_card: Card):
+    target_card.attack_power += 2
+    return target_card.attack_power
    
 def voids(target_card: Card):
     target_card.attack_power += 12
@@ -32,11 +35,11 @@ def yeild(target_card: Card):
     
 
 munch = Card("Munch", 10, "attack", 10, "Munches down on the enemies", "grows after every kill", grow, 10)
-tether = Card("Tether", 5, "attack", 5 ,"Tether holds enemies down.", "skips an enemy turn,", grow, 10)
+tether = Card("Tether", 5, "attack", 5 ,"Tether holds enemies down.", "skips an enemy turn,", teth, 10)
 cards = [munch, tether]
 state = CardState()
-state.hand.append(munch)
-state.hand.append(tether)
+
+
 
 void = Card("Void", 10, "Attack", 10, "Devours souls", "kills", voids, 10)
 shields = Card("Shield", 10, "defense", 10, "Protects them", "keeps the player safe", shield, 10)
@@ -45,10 +48,12 @@ healer = Card("healer", 5, "defense", 0, "heals the player", "health", heal, 0)
 
 
 
+
 munch.effect(munch)
 
 void.effect(void)
 shields.effect(shields)
 shatterd.effect(shatterd)
+tether.effect(tether)
 
 enemy_card = CardState()
